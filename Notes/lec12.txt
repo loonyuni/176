@@ -1,0 +1,48 @@
+Querying Biological Networks pt 2
+10/09/2014
+
+Network alignment:
+    input - protein networks of two organisms
+                1. reference network (well studied)
+                2. not so well studied network
+
+    question - How to use well known modules fromwell studied organisms to find analogs
+
+two ways:
+    1. topology based search
+        -covered last lecture (signalling pathways)
+    2. take information from one organisms network, and project it onto another organisms network and identify homologous pathways 
+    
+    given a query graph $Q = (V_Q, E_Q)$ and a directed weighted graph G, find a sub network G' of G and a mapping from V_q to V_g' that maximizes the similarity of the matched nodes + penalty for insertions and deletions, and ther reliability of interactions in G'
+
+    all on the slides 
+
+    NP complete
+    constrain the query graph to try and get lienar time 
+
+    Simple path queries 
+    Use dynamic programming - analogy betweeen network and sequence alignment 
+    
+    again - on slides 
+
+    What about cycles?
+        use color coding to evade this issue
+        can't contain two nodes of the same color
+        DP matrix now contains D(i,j,c) = maximal score of a partial solution that consists of query nodes {1..i} and ends at vertex j of G and visits each colors in C exactly once. 
+        SLIDES
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
