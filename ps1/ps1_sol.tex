@@ -1,0 +1,305 @@
+\documentclass[12pt,letterpaper]{article}
+
+% margins and no page numbers
+\usepackage{fullpage}
+\pagestyle{empty}
+
+% paragraph line skip (comment to indent) and line spacing
+\usepackage{parskip}
+\linespread{1.1}
+
+% modified ragged right for indent
+\usepackage{ragged2e}
+\setlength{\RaggedRightParindent}{\parindent}
+
+% stop hyphenation - single language
+\usepackage[none]{hyphenat}
+\setlength{\emergencystretch}{2em}
+
+% font settings
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage[sc]{mathpazo}
+%\usepackage[urw-garamond]{mathdesign}
+\usepackage[scaled]{helvet}
+%for underlining
+\usepackage[normalem]{ulem}
+
+% colors!
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+% for importing pictures
+\usepackage{graphicx}
+
+% wrap figures
+\usepackage{float}
+\usepackage{wrapfig}
+
+% caption style
+% \makeatletter
+% \providecommand\phantomcaption{\caption@refstepcounter\@captype}
+% \makeatother
+% \newcommand{\phantomfigure}{\stepcounter{figure}\addtocounter{figure}{-1}}
+% \usepackage[labelfont=bf,justification=RaggedRight]%
+% {caption}
+% \captionsetup[figure]{font={sf,footnotesize},labelfont={bf,sf},margin=1.5cm}
+% \captionsetup[table]{font=tt}
+% \captionsetup[subfloat]{margin=0.5cm}
+\usepackage{sidecap}
+\usepackage{caption}
+
+% table format
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage{arydshln}
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
+\newcommand{\thickerhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1.5pt
+    \futurelet \reserved@a \@xhline
+}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+
+% chemistry
+\usepackage[version=3]{mhchem}
+
+% more math stuff
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{centernot}
+\usepackage{tikz}
+\usepackage{tkz-graph}
+\usepackage{pgfplots}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{MnSymbol}
+\usepackage{wasysym}
+
+
+% citation styles
+\usepackage[super,square,comma]{natbib}
+\usepackage{cite}
+
+% custom title style
+\makeatletter
+\renewcommand{\maketitle}{%
+\begin{flushright}
+\@author\\
+% cs70-\loginidval\\
+% Section \discsectionval\\
+% \textbf{Partner\partnerpluralval:} \partnersval \\
+\@date
+\end{flushright}\begin{center}
+\Large\bf \@title
+\end{center}}
+\makeatother
+
+% title variables
+\newcommand{\loginidval}{aa}
+\newcommand{\loginid}[1]{\renewcommand{\loginidval}{#1}}
+\newcommand{\discsectionval}{101}
+\newcommand{\discsection}[1]{\renewcommand{\discsectionval}{#1}}
+\newcommand{\partnersval}{}
+\newcommand{\partners}[1]{\renewcommand{\partnersval}{#1}}
+\newcommand{\partnerpluralval}{}
+\newcommand{\partnerplural}{\renewcommand{\partnerpluralval}{s}}
+
+% horizontal line
+\newcommand{\hsep}{\begin{center}%
+\rule{\linewidth}{0.1pt} %\linewidth for full width line
+\end{center}}
+
+% if statements
+\usepackage{etoolbox}
+
+% redefining sectioning styles
+\usepackage{titlesec}
+\titleformat{\subsection}[hang]{\large\sc}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{1ex plus 0.5ex minus 0.25 ex}{0.5ex}
+
+\newcommand{\problem}{
+\ifnumequal{\thesection}{0}{}{\pagebreak}
+\refstepcounter{section}%
+\addcontentsline{toc}{section}{\protect\numberline{\thesection}Problem \thesection}%
+\section*{Problem \thesection}%
+\markright{\thesection}}
+
+% numbered lists
+\renewcommand{\labelenumi}{{\bf\arabic{enumi}.}}
+
+% period with spaces
+\newcommand{\ldot}{\ensuremath{\ .\ }}
+
+% floor and ceil
+\newcommand{\floor}[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
+\newcommand{\ceil}[1]{\ensuremath{\left\lceil#1\right\rceil}}
+
+% piecewise function definitions
+\newenvironment{piecewise}{\left\{\begin{tabular}{@{}l@{\hspace{2em}}l@{}}}{\end{tabular}\right.}
+
+% less weird choose
+\newcommand{\ncr}[2]{\ensuremath{{{#1}\choose{#2}}}}
+
+% scientific notation
+\newcommand{\e}[1]{\ensuremath{\times10^{#1}}}
+\newcommand{\E}{\ensuremath{\text{E}}}
+\newcommand{\Var}{\ensuremath{\text{Var}}}
+
+% code blocks
+\newfloat{code}{htp}{cdf}
+\floatname{code}{Code Snippet}
+\captionsetup[code]{font=small,labelfont=bf,margin=1.5cm}
+
+% just trying to tikz something 
+\usepackage{tkz-euclide}
+
+% arrow and line for 'tkzPointShowCoord'
+\makeatletter
+\tikzset{arrow coord style/.style={%
+    densely dashed,
+    \tkz@euc@linecolor,
+    %>=stealth',
+    %->,
+    }}
+    \tikzset{xcoord style/.style={%
+    \tkz@euc@labelcolor,
+    font=\normalsize,text height=1ex,
+    inner sep = 0pt,
+    outer sep = 0pt,
+    fill=\tkz@fillcolor,
+    below=6pt
+    }} 
+\tikzset{ycoord style/.style={%
+    \tkz@euc@labelcolor,
+    font=\normalsize,text height=1ex, 
+    inner sep = 0pt,
+    outer sep = 0pt, 
+    fill=\tkz@fillcolor,
+    left=6pt
+    }}  
+\makeatother
+
+
+
+\usepackage{listings}
+
+\lstset{
+	backgroundcolor=\color{white},
+	tabsize=4,
+	rulecolor=,
+	language=python,
+        basicstyle=\footnotesize,
+        upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\it,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+}
+% linking
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=black]{hyperref}
+
+\author{Youny Kuang}
+% \loginid{gs}
+% \discsection{104}
+
+\newcommand{\hw}{1}
+
+
+% Title, date ---------------------------------------------------
+\title{CS176\_Fall2014 HW \hw}
+\date{\today}
+\partners{Eileen Li, Jason Won}
+\partnerplural % comment to make the word "Partner" not plural
+\author{22805904}
+\begin{document}
+
+\RaggedRight
+\frenchspacing
+\bibliographystyle{ieeetr} %plain, etc.
+
+\maketitle
+
+% Start here ---------------------------------------------------
+
+\problem
+
+\begin{itemize}
+    \item[a.] If we let $\beta =  xyxyxy$ and $S = xyxyxyxy$, then we can see that the two tandem arrays overlap from index 2 onwards, if we let the first tandem repeat $\alpha_1 = xyxyxy$ starting at index 1, and $\alpha_2 = xyxyxy$ starting at index 2.
+
+    \item[b.] In order to find the maximally tandem arrays, we want to use the Z algorithm to find every occurance of $\beta$ in $S$. We'll also want keep track of the the number of repeats that appear in S, let's call that array $M$, so that $M[i]$ will be the the number of repeats up until $i$. If the Z-score of $i$ is equal to $|\beta|$, then know that the repeat $\beta$ and $M[i]=0$, then the repeat must be beginning at $i$, otherwise it's in the middle of a full repeat, and $M[i] > 0$. Thus as we go through the array $(\beta\$S)$, we set $M[i+|\beta|]$ to $M[i]+1$ (only if Z-score of i is the cardinality of $\beta$). Now that we have this array $M$, we can go through, and if there are any indices that have values greater than or equal to 2, we know that there was at least two repeats of $\beta$, which would constitute as a maximal tandem array. Because we only want to find the odd tandem repeats, we look for all $\forall k \in \mathbb{Z}$ where $ M[i] = 2n+k$    
+\vspace{1em}
+
+    The Z Algorithm runs in $O(|\beta|+|S|+Z_s)$. We know that $|\beta|$ is in the order of $|S|$, and we know that $Z_s$, the time to compute the Z-score is linear, then we can say the runtime of this solution is $O(|S|) \implies O(n)$.
+\end{itemize}
+
+\problem
+First we build a suffix tree of T. A unique substring is any string that from starts from the root and continues down to a leaf node. This is the inherent nature of the suffix tree. So let us take a look at one of these paths from the root to an edge node. Now this path needs to have at least two nodes including the root, let us call the branch length $Y$, and the branch length that precedes it $X$, so the path would be something like $\{root \rightarrow \cdots \rightarrow X \rightarrow Y\}$ We know that the path that ends at $Y$ is not unique as it will have another child, so to find a minimally unique substring, we take $YX_1$, where $X_1$ is the first prefix of the $X$ leaf node (not including the terminating symbol \$. 
+\vspace{1em}
+
+So to implement this, we want to keep track of the starting and ending indices for each branch length, so for example we will want to keep track of $(x_i, x_j)$ and $(y_i, y_j)$ and so forth. So to return all minimally unique substrings we just traverse the tree and return the string that occurs from $x_i$ to $y_i$, (if $x_i$ starts from the node.) Because we have the constraint l, if $y_i - x_i > l$, then we don't return that substring. We know that suffix tree construction can be done in $O(m)$ and searching can be done in $O(m + \log(n) + j)$, where $j$ is the number of matches, and $\log(n)$ is the number of steps for binary search. 
+
+\problem
+We use a modified suffix array, where instead of placing actual suffixes in each "index" we put the k-mers. Finding all the k-mers, and the construction of a suffix array is $O(n+n) \implies O(n)$ time, and then searching for frequency will take $O(k\log(n))$ time using binary search. 
+\vspace{.5em}
+
+Say $k = 3$ and $S=ebcdebcd$
+\begin{center}
+
+\begin{tabular}{lll}
+        
+        \begin{tabular}{|l|r|}
+            \hline
+            1 & ebc \\ \hline
+            2 & bcd \\ \hline
+            3 & cde \\ \hline
+            4 & ebc \\ \hline
+            5 & bcd \\
+            \hline
+        \end{tabular}
+    &
+    $\rightarrow$
+    &
+        
+        \begin{tabular}{|l|r|}
+            \hline
+            2 & bcd \\ \hline
+            5 & bcd \\ \hline
+            3 & cde \\ \hline
+            1 & ebc\\ \hline
+            4 & ebc \\
+            \hline
+        \end{tabular}\\
+        unsorted k-mer array & & sorted k-mer array
+        
+\end{tabular}
+\end{center}
+
+\problem
+We can just generate a "super" generalized suffix tree, so that if we had four strings $\alpha, \beta, \gamma, \delta$, then we would concatenate them with non-alphabetical charachters, e.g. our new string would be $"\alpha\$\beta\heartsuit\gamma\blacksquare\delta\spadesuit"$. Now we perform "LCP" for each pair of strings. You find LCP by looking for the deepest node that is a common ancestor of two nodes that contain the "termination characters" of the two strings that you're trying to compare. There exists a O(1) algorithm to perform LCP, but we didn't cover it in class. This turns out to be $O(kn + p)$ if $p$ is the number pairs, and all the strings are of length $n$. 
+
+\end{document}
+
+
+
+
+
+
+
